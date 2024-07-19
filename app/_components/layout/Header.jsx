@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Header() {
+  const path = usePathname();
   const navItems = [
     {
       display: "the camp.",
@@ -15,8 +18,11 @@ function Header() {
       slug: "/blog",
     },
   ];
+
   return (
-    <header className="header">
+    <header
+      className={`header ${path === "/experience" ? "header--light" : ""}`}
+    >
       <img src="/assets/logo.svg" alt="logo" className="header__logo" />
       <ul className="header__nav">
         {navItems.map((item) => (
@@ -28,7 +34,7 @@ function Header() {
         ))}
       </ul>
       <Link href={"/events"}>
-        <button className="btn btn__black btn__small">Book Now</button>
+        <button className="btn btn--black btn--small">Book Now</button>
       </Link>
     </header>
   );

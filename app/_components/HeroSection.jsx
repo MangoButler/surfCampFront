@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-function HeroSection({ imagesrc, theme = "turqoise", headline }) {
+function HeroSection({ imagesrc, theme = "turquoise", headline }) {
   return (
-    <section>
+    <section className="hero">
       <div className="hero__background">
         <img
           src={imagesrc || "/assets/MainSurfer.png"}

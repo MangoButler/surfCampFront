@@ -1,8 +1,22 @@
 .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 2rem 4.8rem;
   align-items: center;
+  z-index: 10;
+
+  &--light {
+    color: white;
+    & .header__logo {
+      filter: invert(91%) sepia(25%) saturate(18%) hue-rotate(5deg)
+        brightness(108%) contrast(104%);
+      width: 5rem;
+    }
+  }
   &__logo {
     width: 5rem;
   }

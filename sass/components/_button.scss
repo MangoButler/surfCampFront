@@ -1,11 +1,27 @@
 .btn {
   font-size: 2.5rem;
 
-  &__black {
+  &--black {
     background-color: black;
     color: white;
   }
-  &__small {
+  &--turquoise {
+    background-color: $turquoise;
+    color: white;
+  }
+  &--orange {
+    background-color: $darkorange;
+    color: white;
+  }
+  &--beige {
+    background-color: $beige;
+    color: white;
+  }
+  &--medium {
+    padding: 1.6rem 3.2rem;
+    border-radius: 3.2rem;
+  }
+  &--small {
     padding: 1rem 1.8rem;
     border-radius: 2.5rem;
   }

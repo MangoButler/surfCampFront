@@ -1,6 +1,11 @@
+import { fetchDataFromStrapi, processInfoBlocks } from "@/utils/strapi-utils";
 import HeroSection from "./_components/HeroSection";
+import InfoBlock from "./_components/InfoBlock";
 
-export default function Home() {
+export default async function Home() {
+  const data = await fetchDataFromStrapi("infoblocks-landing?populate=deep");
+  const infoBlocksData = processInfoBlocks(data);
+
   const headline = (
     <>
       <h1>barrel.</h1>
@@ -11,6 +16,11 @@ export default function Home() {
   return (
     <main>
       <HeroSection headline={headline} />
+      {infoBlocksData.map((data) => (
+        <InfoBlock key={data.id} data={data} />
+      ))}
     </main>
   );
 }
+
+export const revalidate = 300;
