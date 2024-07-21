@@ -1,9 +1,41 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { fetchBlogArticles } from "@/utils/strapi-utils";
+
+function getTextAfterLastSlash(str) {
+  // Find the last occurrence of the slash
+  const lastSlashIndex = str.lastIndexOf("/");
+
+  // Extract the text after the last slash
+  const textAfterLastSlash = str.substring(lastSlashIndex + 1);
+
+  return textAfterLastSlash;
+}
 
 function Header() {
   const path = usePathname();
+  const [headerIsWhite, setHeaderIsWhite] = useState(false);
+  // let whiteHeader = path === "/experience";
+  useEffect(() => {
+    if (path.includes("blog/")) {
+      async function getHeaderColorFromPath(slug) {
+        const articles = await fetchBlogArticles();
+        const article = articles.find((article) => article.slug === slug);
+        if (!article.headlineIsBlack) {
+          setHeaderIsWhite(true);
+        }
+      }
+      const slug = getTextAfterLastSlash(path);
+      getHeaderColorFromPath(slug);
+    } else if (path === "/experience") {
+      setHeaderIsWhite(true);
+    } else {
+      setHeaderIsWhite(false);
+    }
+  }, [path]);
+
   const navItems = [
     {
       display: "the camp.",
@@ -20,9 +52,7 @@ function Header() {
   ];
 
   return (
-    <header
-      className={`header ${path === "/experience" ? "header--light" : ""}`}
-    >
+    <header className={`header ${headerIsWhite ? "header--light" : ""}`}>
       <img src="/assets/logo.svg" alt="logo" className="header__logo" />
       <ul className="header__nav">
         {navItems.map((item) => (
