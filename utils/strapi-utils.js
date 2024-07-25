@@ -67,3 +67,8 @@ export function formatDate(dateString) {
   };
   return date.toLocaleDateString("en-US", options);
 }
+
+export function extractImageUrl(imageData) {
+  const url = BASE_URL + imageData.data?.attributes?.url;
+  return url;
+}
