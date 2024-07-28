@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
 
 function SubscribeToNewsletter() {
   const [email, setEmail] = useState("");
@@ -8,10 +9,18 @@ function SubscribeToNewsletter() {
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     //send email to strapi
     // give back feedback to user
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/newsletter-signups`,
+      {
+        data: {
+          email,
+        },
+      }
+    );
     if (email.length && email.includes("@")) {
       setHasSignedUp(true);
     }
