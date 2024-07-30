@@ -6,6 +6,7 @@ import axios from "axios";
 function SubscribeToNewsletter() {
   const [email, setEmail] = useState("");
   const [hasSignedUp, setHasSignedUp] = useState(false);
+  const [error, setError] = useState(null);
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
@@ -13,21 +14,38 @@ function SubscribeToNewsletter() {
     event.preventDefault();
     //send email to strapi
     // give back feedback to user
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/newsletter-signups`,
-      {
-        data: {
-          email,
-        },
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/newsletter-signups`,
+        {
+          data: {
+            email,
+          },
+        }
+      );
+      if (email.length && email.includes("@")) {
+        setHasSignedUp(true);
+        setError(null);
       }
-    );
-    if (email.length && email.includes("@")) {
-      setHasSignedUp(true);
+    } catch (error) {
+      setError(error.message);
     }
   };
   return (
     <section className="newsletter">
-      {hasSignedUp ? (
+      {error ? (
+        <div className="newsletter__error">
+          <h4 className="newsletter__thanks error-text">
+            Something went wrong!
+          </h4>
+          <button
+            className="btn btn--medium btn--error"
+            onClick={() => setError(null)}
+          >
+            Try Again!
+          </button>
+        </div>
+      ) : hasSignedUp ? (
         <h4 className="newsletter__thanks">Thanks for signing up!</h4>
       ) : (
         <>
