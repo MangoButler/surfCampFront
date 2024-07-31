@@ -2,6 +2,7 @@ import ReactMarkdown from "react-markdown";
 import SignupForm from "../_components/events/SignupForm";
 
 export default function EventsPage() {
+  const headline = "You wanna stay tuned for our events!";
   const infoText = (
     <>
       <p className="copy">
@@ -40,7 +41,7 @@ export default function EventsPage() {
   );
   return (
     <main className="events-page">
-      <SignupForm infoText={infoText} />
+      <SignupForm headline={headline} infoText={infoText} />
     </main>
   );
 }

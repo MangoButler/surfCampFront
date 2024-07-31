@@ -1,0 +1,24 @@
+.signup-form {
+  display: flex;
+  justify-content: space-between;
+
+  &__headline {
+    margin-bottom: 3rem;
+  }
+  &__info {
+    width: 49%;
+  }
+  &__form {
+    width: 45%;
+  }
+  & .copy:not(:last-of-type) {
+    margin-bottom: 1.6rem;
+  }
+  &__name-container {
+    display: flex;
+    justify-content: space-between;
+    & .input-container {
+      width: 48%;
+    }
+  }
+}
