@@ -6,7 +6,7 @@ import axios from "axios";
 function SubscribeToNewsletter() {
   const [email, setEmail] = useState("");
   const [hasSignedUp, setHasSignedUp] = useState(false);
-  const [err, setErr] = useState(null);
+  const [error, setError] = useState(null);
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
@@ -25,24 +25,26 @@ function SubscribeToNewsletter() {
       );
       if (email.length && email.includes("@")) {
         setHasSignedUp(true);
-        setErr(null);
+        setError(null);
       }
     } catch (error) {
-      setErr(error);
+      setError(error.message);
     }
   };
   return (
     <section className="newsletter">
-      {err ? (
+      {error ? (
         <div className="newsletter__error">
-           <h4 className="newsletter__thanks error-message">{`Error: ${err.message} - Try again`}</h4>
-           <button
-              type="btn"
-              className="btn btn--medium btn--orange"
-              onClick={()=> setErr(null)}
-            >Try Again</button>
+          <h4 className="newsletter__thanks error-text">
+            Something went wrong!
+          </h4>
+          <button
+            className="btn btn--medium btn--error"
+            onClick={() => setError(null)}
+          >
+            Try Again!
+          </button>
         </div>
-       
       ) : hasSignedUp ? (
         <h4 className="newsletter__thanks">Thanks for signing up!</h4>
       ) : (

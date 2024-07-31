@@ -13,6 +13,10 @@
     background-color: $darkorange;
     color: white;
   }
+  &--error {
+    background-color: $error-red;
+    color: white;
+  }
   &--beige {
     background-color: $beige;
     color: white;
