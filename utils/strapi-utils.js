@@ -73,3 +73,21 @@ export function extractImageUrl(imageData) {
   const url = BASE_URL + imageData.data?.attributes?.url;
   return url;
 }
+
+function processEventData(event) {
+  return {
+    ...event.attributes,
+    id: event.id,
+    image: extractImageUrl(event.image),
+  };
+}
+
+export async function fetchEvents() {
+  const eventsData = await fetchDataFromStrapi("events?populate=deep");
+  const processedEvents = eventsData.map(processEventData);
+
+  processedEvents.sort(
+    (a, z) => new Date(z.startingDate) - new Date(a.startingDate)
+  );
+  return processedEvents;
+}
