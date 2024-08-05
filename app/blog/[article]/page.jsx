@@ -27,10 +27,14 @@ export default async function ArticlePage({ params }) {
 }
 
 export async function generateStaticParams() {
-  const articles = await fetchDataFromStrapi("blog-articles");
-  return articles.map((article) => ({
-    article: article.attributes.slug,
-  }));
+  try {
+    const articles = await fetchDataFromStrapi("blog-articles");
+    return articles.map((article) => ({
+      article: article.attributes.slug,
+    }));
+  } catch (error) {
+    console.log("Failed to fetch blog article from Strapi" + error.message);
+  }
 }
 
 export const revalidate = 300;

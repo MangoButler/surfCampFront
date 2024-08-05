@@ -5,7 +5,7 @@ import TextInput from "../TextInput";
 import axios from "axios";
 import { allDataFilledIn } from "@/utils/validation-utils";
 
-function SignupForm({ headline, infoText, buttonLabel }) {
+function SignupForm({ headline, infoText, buttonLabel, pricing }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -26,7 +26,7 @@ function SignupForm({ headline, infoText, buttonLabel }) {
     const payload = {
       data: { ...formData, isGeneralInterest: true },
     };
-    console.log(allDataFilledIn(formData));
+
     if (allDataFilledIn(formData)) {
       try {
         const response = await axios.post(
@@ -90,6 +90,17 @@ function SignupForm({ headline, infoText, buttonLabel }) {
           <button className="btn btn--medium btn--turquoise" type="submit">
             {buttonLabel || "Stay in Touch"}
           </button>
+          {pricing && (
+            <div className="signup-form__pricing">
+              <h3>Pricing</h3>
+              <p className="copy">
+                <span className="bold">
+                  Single Room: ${pricing.single} per person
+                </span>
+              </p>
+              <p className="copy">Shared Room: ${pricing.shared} per person</p>
+            </div>
+          )}
         </form>
       )}
     </section>

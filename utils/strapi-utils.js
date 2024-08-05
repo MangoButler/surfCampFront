@@ -78,8 +78,22 @@ function processEventData(event) {
   return {
     ...event.attributes,
     id: event.id,
-    image: extractImageUrl(event.image),
+    image: extractImageUrl(event.attributes.image),
   };
+}
+
+export async function fetchIndividualEvent(eventId) {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/api/events/${eventId}?populate=deep`
+    );
+
+    const event = processEventData(response.data?.data);
+
+    return event;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function fetchEvents() {
