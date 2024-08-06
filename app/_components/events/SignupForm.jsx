@@ -4,8 +4,15 @@ import { useState } from "react";
 import TextInput from "../TextInput";
 import axios from "axios";
 import { allDataFilledIn } from "@/utils/validation-utils";
+import { generateSignupPayload } from "@/utils/strapi-utils";
 
-function SignupForm({ headline, infoText, buttonLabel, pricing }) {
+function SignupForm({
+  headline,
+  infoText,
+  buttonLabel,
+  pricing,
+  eventId = null,
+}) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,9 +30,7 @@ function SignupForm({ headline, infoText, buttonLabel, pricing }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      data: { ...formData, isGeneralInterest: true },
-    };
+    const payload = generateSignupPayload(formData, eventId);
 
     if (allDataFilledIn(formData)) {
       try {

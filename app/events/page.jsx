@@ -1,7 +1,10 @@
 import ReactMarkdown from "react-markdown";
 import SignupForm from "../_components/events/SignupForm";
+import { fetchAllEvents } from "@/utils/strapi-utils";
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const upcomingEvents = await fetchAllEvents();
+  console.log(upcomingEvents);
   const headline = "You wanna stay tuned for our events!";
   const infoText = (
     <>

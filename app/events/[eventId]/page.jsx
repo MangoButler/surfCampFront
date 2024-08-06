@@ -24,6 +24,7 @@ export default async function EventPage({ params }) {
         infoText={descriptionMarkdown}
         buttonLabel={"Sign up"}
         pricing={pricing}
+        eventId={eventId}
       />
     </main>
   );
