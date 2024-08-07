@@ -1,4 +1,5 @@
 import {
+  fetchAllEvents,
   fetchDataFromStrapi,
   fetchEvents,
   fetchIndividualEvent,

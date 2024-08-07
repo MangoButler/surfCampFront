@@ -1,10 +1,11 @@
 import ReactMarkdown from "react-markdown";
 import SignupForm from "../_components/events/SignupForm";
 import { fetchAllEvents } from "@/utils/strapi-utils";
+import FeaturedItems from "../_components/FeaturedItems/FeaturedItems";
 
 export default async function EventsPage() {
   const upcomingEvents = await fetchAllEvents();
-  console.log(upcomingEvents);
+  console.log(upcomingEvents); /////////////
   const headline = "You wanna stay tuned for our events!";
   const infoText = (
     <>
@@ -45,6 +46,11 @@ export default async function EventsPage() {
   return (
     <main className="events-page">
       <SignupForm headline={headline} infoText={infoText} />
+      <FeaturedItems
+        headline={"Stay tuned for our upcoming events!"}
+        items={upcomingEvents}
+        itemType={"events"}
+      />
     </main>
   );
 }

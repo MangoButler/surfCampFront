@@ -127,10 +127,19 @@ export function generateSignupPayload(formData, eventId) {
 export async function fetchAllEvents() {
   const query = qs.stringify(
     {
+      pagination: {
+        start: 0,
+        limit: 12,
+      },
       sort: ["startingDate:asc"],
       filters: {
         startingDate: {
           $gt: new Date(),
+        },
+      },
+      populate: {
+        image: {
+          fields: ["name", "url"],
         },
       },
     },
@@ -140,5 +149,5 @@ export async function fetchAllEvents() {
   );
 
   const response = await axios.get(`${BASE_URL}/api/events?${query}`);
-  return response.data.data;
+  return response.data.data.map((event) => processEventData(event));
 }
