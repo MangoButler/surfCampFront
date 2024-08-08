@@ -5,7 +5,7 @@ import FeaturedItems from "../_components/FeaturedItems/FeaturedItems";
 
 export default async function EventsPage() {
   const upcomingEvents = await fetchAllEvents();
-  console.log(upcomingEvents); /////////////
+ 
   const headline = "You wanna stay tuned for our events!";
   const infoText = (
     <>
@@ -49,7 +49,7 @@ export default async function EventsPage() {
       <FeaturedItems
         headline={"Stay tuned for our upcoming events!"}
         items={upcomingEvents}
-        itemType={"events"}
+        itemType={"event"}
       />
     </main>
   );

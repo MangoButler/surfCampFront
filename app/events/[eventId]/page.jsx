@@ -6,10 +6,12 @@ import {
 } from "@/utils/strapi-utils";
 import SignupForm from "../../_components/events/SignupForm";
 import ReactMarkdown from "react-markdown";
+import FeaturedItems from "@/app/_components/FeaturedItems/FeaturedItems";
 
 export default async function EventPage({ params }) {
   const { eventId } = params;
   const event = await fetchIndividualEvent(eventId);
+  const upcomingEvents = await fetchAllEvents(eventId);
   const descriptionMarkdown = (
     <ReactMarkdown className="copy">{event.description}</ReactMarkdown>
   );
@@ -26,6 +28,11 @@ export default async function EventPage({ params }) {
         buttonLabel={"Sign up"}
         pricing={pricing}
         eventId={eventId}
+      />
+      <FeaturedItems
+        headline={"See our other events!"}
+        items={upcomingEvents}
+        itemType={"event"}
       />
     </main>
   );
